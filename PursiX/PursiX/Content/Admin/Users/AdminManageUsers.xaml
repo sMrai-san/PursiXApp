@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.Users.AdminManageUsers">
+    <NavigationPage.TitleView>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+                <Label Text="Pursi X v.0.1a" TextColor="White">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="3" DistanceX="6" DistanceY="6">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+            </StackLayout>
+        </NavigationPage.TitleView>
+
+        <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Käyttäjät"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    
+        <Grid RowSpacing="1" ColumnSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+        <!--Add User-->
+        <BoxView x:Name="grid_addUser" Color="#38A654">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AddUser"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        <Label Text="Lisää käyttäjä" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AddUser" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        <!--Edit User-->
+        <BoxView x:Name="grid_modifyUser" Grid.Column="1" Color="#F2BC57">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ModifyUser"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        <Label Grid.Column="1" Text="Muokkaa käyttäjiä" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ModifyUser"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+        <!--Delete User-->
+        <BoxView x:Name="grid_deleteUser" Grid.Row="1" Color="#F2727D">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DeleteUser" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        <Label Grid.Row="1" Text="Poista käyttäjiä" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DeleteUser" />
+                </Label.GestureRecognizers>
+            </Label>
+
+
+        <!--List Users-->
+        <BoxView x:Name="grid_listUsers" Grid.Row="1" Grid.Column="1" Color="#328C49">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ListUsers" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        <Label Grid.Row="1" Grid.Column="1" Text="Listaa kaikki käyttäjät" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ListUsers" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        <!--Back to AdminPage-->
+        <Frame x:Name="grid_cancel" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="LightGray" HasShadow="True">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cancel"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Takaisin ylläpidon etusivulle" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="4" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#000" />
+                            <On Platform="Android" Value="#000" />
+                            <On Platform="UWP" Value="#000" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Cancel"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+
+        </Grid>
+</ContentPage>

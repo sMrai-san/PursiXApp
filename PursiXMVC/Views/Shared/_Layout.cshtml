@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PursiXMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/events/icon.png">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand text-break frontLogo" asp-area="" asp-controller="Home" asp-action="Index"><img class="align-self-start mr-1" width="40" height="40" src="/images/events/icon.png" alt="PursiXLogo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Home" asp-action="Index">Etusivu</a>
+                        </li>
+                        @if (Context.Session.GetString("username") != null)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Events" asp-action="Index">Tapahtumat</a>
+                        </li>
+                        }
+                        @if (Context.Session.GetString("isAdmin") == "true")
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Logins" asp-action="Index">Käyttäjät</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="EventParticipations" asp-action="Index">Ilmoittautumiset</a>
+                        </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Home" asp-action="Contact">Yhdistys</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Home" asp-action="Help">Ohjeet</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    @*Show Login if not logged in*@
+                    @if (Context.Session.GetString("username") == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark frontNavi" asp-area="" asp-controller="Account" asp-action="Index">Kirjautuminen</a>
+                        </li>
+                    }
+                    @*Show login data when logged in*@
+                    @if (Context.Session.GetString("username") != null)
+                    {
+                        <a class="text-decoration-none text-primary" asp-action="EditUserInfo" asp-controller="Account" asp-route-loginid="@Context.Session.GetInt32("loginid")">
+                            <li class="nav-item nav-link text-primary frontNavi">                              
+                                    @Context.Session.GetString("username") <i class="fas fa-user-cog"></i>
+                            </li>
+                        </a>
+                            <li><a asp-controller="account" asp-action="logout" class="nav-item nav-link text-info frontNavi">Kirjaudu ulos</a></li>
+                            }
+                    </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 Ville Siivonen - PursiXMVC <a asp-area="" asp-controller="Home" asp-action="Contact">Yhdistyksestä</a>
+        </div>
+    </footer>
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=yourgoogleapikey&callback=initMap">
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

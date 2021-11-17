@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             x:Class="PursiX.Content.User.EditUserInfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+
+                <!--Page Headers-->
+                <Image Source="user_icon.png" HorizontalOptions="Center" WidthRequest="70"></Image>
+                <Label Text="Yhteystietojen muokkaus" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Edit UserInfo form starts here-->
+                <Entry x:Name="input_emailAddress" Text="{Binding Email}" Style="{StaticResource entryText}" IsEnabled="False" />
+                <Label Text="Etunimi:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_firstName" Text="{Binding FirstName}" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="35" />
+                        <local:LetterValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Sukunimi:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_lastName" Text="{Binding LastName}" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="35" />
+                        <local:LetterValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Lähiosoite:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_address" Text="{Binding Address}" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="95" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Postinumero:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_postalCode" Text="{Binding PostalCode}" Keyboard="Numeric" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="5" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Paikkakunta:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_city" Text="{Binding City}" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="35" />
+                        <local:LetterValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Puhelinnumero" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_phoneNumber" Text="{Binding Phone}" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PhoneNumberValidate />
+                    </Entry.Behaviors>
+                </Entry>
+
+
+                <!--Form Buttons-->
+                <Button Text="Tallenna" x:Name="btn_save" Clicked="UpdateUserInfo" Style="{StaticResource buttonValidate}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}"></Button>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

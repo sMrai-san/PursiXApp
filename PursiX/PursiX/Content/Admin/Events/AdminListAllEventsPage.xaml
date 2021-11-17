@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.Events.AdminListAllEventsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Tapahtumat ► Lista"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <!--Back button-->
+                <Button Text="Takaisin" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}" Margin="0, 0, 0, 8" TextColor="White">
+                    <Button.Effects>
+                        <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                            <local:ShadowEffect.Color>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <On Platform="iOS" Value="#000" />
+                                    <On Platform="Android" Value="#000" />
+                                    <On Platform="UWP" Value="#000" />
+                                </OnPlatform>
+                            </local:ShadowEffect.Color>
+                        </local:ShadowEffect>
+                    </Button.Effects>
+                </Button>
+
+                <!--Loading indicator-->
+                <ActivityIndicator x:Name="pro_loading" IsRunning="true" HorizontalOptions="Center" />
+
+                <StackLayout Orientation="Horizontal" Margin="28, 0, 0, 0">
+                    <Label x:Name="lbl_allEvents" Text="PursiX tapahtumia yhteensä: "></Label>
+                    <Label x:Name="lbl_allEventsCount" Text="" FontAttributes="Bold"></Label>
+                </StackLayout>
+                
+                <!--Search-->
+                <Grid Margin="0,0,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Hae tapahtumaa nimellä" FontSize="12" FontAttributes="Bold" Margin="28, 0, 0, 0" />
+                    <StackLayout Grid.Row="1" Grid.Column="0" Margin="24, -12, 12, 0" >
+                        <Entry x:Name="input_searchEvent" Placeholder="Hae" TextChanged="InputSearch" />
+                    </StackLayout>
+                </Grid>
+
+                <!-- PreviousPage - NextPage controls -->
+                <Grid Grid.Row="1" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" x:Name="lbl_noMoreResults" Text="" Style="{StaticResource labelPendingPart}" FontSize="Caption" HorizontalOptions="FillAndExpand" />
+                    <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="0" >
+                        <Button Grid.Column="0" x:Name="btn_previous" Text="◄ Edelliset" HorizontalOptions="CenterAndExpand" WidthRequest="150" FontSize="12" Clicked="previousPage">
+                            <Button.Effects>
+                                <local:ShadowEffect Radius="6" DistanceX="7" DistanceY="6">
+                                    <local:ShadowEffect.Color>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <On Platform="iOS" Value="#eee" />
+                                            <On Platform="Android" Value="#eee" />
+                                            <On Platform="UWP" Value="#eee" />
+                                        </OnPlatform>
+                                    </local:ShadowEffect.Color>
+                                </local:ShadowEffect>
+                            </Button.Effects>
+                        </Button>
+
+                        <StackLayout Grid.Column="1"  Orientation="Horizontal" VerticalOptions="End" Margin="0, 0, 0, 2">
+                            <Label x:Name="lbl_pageCount" Text=""></Label>
+                            <Label x:Name="lbl_countDivider" Text=" / "></Label>
+                            <Label x:Name="lbl_eventCount" Text=""></Label>
+                        </StackLayout>
+                        <Button Grid.Column="2" x:Name="btn_next" Text="Seuraavat ►" HorizontalOptions="CenterAndExpand" WidthRequest="150" FontSize="12" Clicked="nextPage">
+                            <Button.Effects>
+                                <local:ShadowEffect Radius="6" DistanceX="7" DistanceY="6">
+                                    <local:ShadowEffect.Color>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <On Platform="iOS" Value="#eee" />
+                                            <On Platform="Android" Value="#eee" />
+                                            <On Platform="UWP" Value="#eee" />
+                                        </OnPlatform>
+                                    </local:ShadowEffect.Color>
+                                </local:ShadowEffect>
+                            </Button.Effects>
+                        </Button>
+                    </StackLayout>
+                </Grid>
+
+                <!--All events listed-->
+                <ListView x:Name="eventList" HasUnevenRows="True" Margin="24, 0, 0, 0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="74" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="7*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label x:Name="lbl_EventId" Text="{Binding EventID}" IsVisible="False"/>
+
+                                    <Label Grid.Row="0" Grid.Column="0" x:Name="lbl_EventDate" Text="{Binding EventDateTime, StringFormat='{0:dd.MM.yyyy}'}" FontSize="14" FontAttributes="Italic" VerticalOptions="Start" LineBreakMode="WordWrap">
+                                        <Label.Effects>
+                                            <local:ShadowEffect Radius="6" DistanceX="3" DistanceY="3">
+                                                <local:ShadowEffect.Color>
+                                                    <OnPlatform x:TypeArguments="Color">
+                                                        <On Platform="iOS" Value="#38A654" />
+                                                        <On Platform="Android" Value="#38A654" />
+                                                        <On Platform="UWP" Value="#38A654" />
+                                                    </OnPlatform>
+                                                </local:ShadowEffect.Color>
+                                            </local:ShadowEffect>
+                                        </Label.Effects>
+                                    </Label>
+
+                                    <Label Grid.Row="0" Grid.Column="1" x:Name="lbl_EventName" Text="{Binding Name}" FontSize="16" LineBreakMode="WordWrap" TextColor="Black" Opacity="0.6" >
+                                        <Label.Effects>
+                                            <local:ShadowEffect Radius="3" DistanceX="3" DistanceY="3">
+                                                <local:ShadowEffect.Color>
+                                                    <OnPlatform x:TypeArguments="Color">
+                                                        <On Platform="iOS" Value="#F2BC57" />
+                                                        <On Platform="Android" Value="#F2BC57" />
+                                                        <On Platform="UWP" Value="#F2BC57" />
+                                                    </OnPlatform>
+                                                </local:ShadowEffect.Color>
+                                            </local:ShadowEffect>
+                                        </Label.Effects>
+                                    </Label>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminEventsManagePage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+            <Label Text="Pursi X v.0.1a" TextColor="White">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="3" DistanceX="6" DistanceY="6">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Tapahtumat"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    
+    <Grid RowSpacing="1" ColumnSpacing="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--Add Event-->
+        <BoxView x:Name="grid_addEvent" Color="#38A654">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToAddEvent"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Text="Lisää tapahtuma" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToAddEvent"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--Modify Events-->
+        <BoxView x:Name="grid_modifyEvents" Grid.Column="1" Color="#F2BC57">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToModifyEvent"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Column="1" Text="Muokkaa tapahtumia" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToModifyEvent"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--Delete Events-->
+        <BoxView x:Name="grid_deleteEvent" Grid.Row="1" Color="#F2727D">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToDeleteEvent"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1" Text="Poista tapahtumia" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToDeleteEvent" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--List all events-->
+        <BoxView x:Name="grid_listEvents" Grid.Row="1" Grid.Column="1" Color="#328C49">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToAllEvents" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1" Grid.Column="1" Text="Listaa kaikki tapahtumat" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToAllEvents" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--Back to AdminPage-->
+        <Frame x:Name="grid_cancel" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="LightGray" HasShadow="True">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Takaisin ylläpidon etusivulle" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="4" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#000" />
+                            <On Platform="Android" Value="#000" />
+                            <On Platform="UWP" Value="#000" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local1="clr-namespace:PursiX.Models.Admin" xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminAddEventPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Tapahtumat ► Lisää"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+
+                <!--Add event page headers-->
+                <Image Source="Admin.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="70"></Image>
+                <Label Text="Lisää tapahtuma" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Form starts here-->
+                <Label Text="Valitse tapahtuman päivämäärä:" FontSize="12" Margin="4, 12, 0, -12" />
+                <DatePicker x:Name="input_eventDate" MinimumDate="01/01/2020"
+                MaximumDate="01/01/2045" Format="dd/MM/yyyy" />
+                
+                <Entry x:Name="input_eventName" Placeholder="Nimi" Keyboard="Text" MaxLength="60"></Entry>
+                
+                <Editor x:Name="input_eventDescription" Placeholder="Kuvaus" Keyboard="Text" AutoSize="TextChanges"></Editor>
+
+                <Entry x:Name="input_eventMaxParticipations" Placeholder="Osallistujien enimmäismäärä" Keyboard="Numeric" MaxLength="4" />
+                
+                <Entry x:Name="input_eventUrl" Placeholder="Sivusto (esim. http://pursix.com)" Keyboard="Url">
+                    <Entry.Behaviors>
+                        <local:UrlValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                
+                <Editor x:Name="input_eventAddDetails" Placeholder="Lisätiedot ilmoittautujille" Keyboard="Text" AutoSize="TextChanges"></Editor>
+                
+                <Grid Margin="0,0,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="200" />
+                    </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Text="Leveysaste" Style="{StaticResource labelSmallTextAdmin}" />
+                    <Label Grid.Row="1" Grid.Column="0" x:Name="input_eventLatitude" Text="{Binding Latitude}" ></Label>
+                <Label Grid.Row="0" Grid.Column="1" Text="Pituusaste" Style="{StaticResource labelSmallTextAdmin}" />
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="input_eventLongitude" Text="{Binding Longitude}" ></Label>
+                <StackLayout Grid.Row="2" Grid.ColumnSpan="2" x:Name="layout_map" IsVisible="True">
+                    <local1:CustomMap
+                                x:Name="map"
+                                MapType="Street"
+                                />
+                </StackLayout>
+                </Grid>
+
+
+                <!--Form buttons-->
+                <Button Text="Lisää tapahtuma" x:Name="btn_addEvent" Clicked="AddEvent" Style="{StaticResource buttonValidate}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}"></Button>
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

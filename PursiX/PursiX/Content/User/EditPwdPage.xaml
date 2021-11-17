@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.User.EditPwdPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+                
+                <!--Page Headers-->
+                <Image Source="pwd.png" HorizontalOptions="Center" WidthRequest="70"></Image>
+                <Label Text="Salasanan vaihto" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Password changing Forms starts here-->
+                <Label Text="Nykyinen salasanasi:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_oldpassword" Placeholder="Nykyinen salasana" IsPassword="True" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PasswordValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                
+                <Label Text="Salasanan tulee olla vähintään 8 merkkiä pitkä ja sisältää 1 numero:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_password" Placeholder="Salasana" IsPassword="True" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PasswordValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Salasana uudelleen:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_passwordAgain" Placeholder="Salasana uudelleen" IsPassword="True" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PasswordValidation />
+                        <local:CompareValidation BindingContext="{x:Reference input_password}" Text="{Binding Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+                <!--Form buttons-->
+                <Button Text="Tallenna" x:Name="btn_register" Clicked="ChangePwd" Style="{StaticResource buttonValidate}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}"></Button>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

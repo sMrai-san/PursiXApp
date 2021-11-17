@@ -1,0 +1,241 @@
+﻿@model EventListModel
+<!--For Session stuff-->
+@using Microsoft.AspNetCore.Http;
+
+<!--For the decimal separator-->
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Tapahtumat";
+}
+
+@* If Admin is logged, let's change the header
+    There's also other buttons visible only for
+    site Administrators*@
+@if (Context.Session.GetString("isAdmin") == "true")
+{
+    <div class="row">
+        <h1 class="col float-left">Tapahtumien ylläpito</h1>
+        <div class="col-3 float-right text-right">
+            @if (ViewBag.showPast == false)
+            {
+                <a asp-action="Index" asp-controller="Events" asp-route-showPast="true" class="btn btn-info mb-2 mt-1"><i class="fas fa-check"></i> Näytä kaikki</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-controller="Events" class="btn btn-info mb-2 mt-1"><i class="fas fa-times"></i> Näytä tulevat</a>
+            }
+        </div>
+    </div>
+    <p class="text-info">Tapahtumia listattuna: @ViewBag.eventCount</p>
+}
+else
+{
+    <div class="row">
+        <div class="col float-left"><h1>Tapahtumat</h1></div>
+        <div class="col-3 float-right bg-light shadow rounded-lg m-3 eventInfoCard">
+            <div class="text-left text-break"><i class="far fa-question-circle fa-1x text-info"></i><font class="text-info text-muted"> Info</font></div>
+            <div class="text-right text-break">
+                <small>
+                    Osallistu tapahtumaan <i class="fas fa-plus-circle text-primary"></i>
+                    <br />
+                    Poistu tapahtumasta <i class="fas fa-times-circle text-danger"></i>
+                </small>
+            </div>
+        </div>
+    </div>
+}
+
+<!--Interactivity, messages!-->
+@if (ViewBag.success != null)
+{
+    <div id="successmessage">
+        <div>
+            <div id="inner-message" class="alert alert-success shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.success
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.error != null)
+{
+    <div id="errormessage">
+        <div>
+            <div id="inner-message" class="alert alert-danger shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.error
+            </div>
+        </div>
+    </div>
+}
+
+<!--Search events-->
+<form asp-controller="Events" asp-action="Index">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Hae tapahtumaa:</span>
+        </div>
+        <input type="text" class="form-control" name="searchEvent" value="@ViewBag.searchString">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+        </div>
+        @if (ViewBag.searchString != null)
+        {
+            <div>
+                <!--Showing current search input in a interactive button, you can close-->
+                <a class="btn btn-secondary ml-4" asp-action="Index" asp-controller="Events">@ViewBag.searchString <i class="fas fa-times"></i></a>
+            </div>
+        }
+    </div>
+</form>
+
+<!--Show Create Event button if admin-->
+@{
+    if (Context.Session.GetString("isAdmin") == "true")
+    {
+        <div>
+            <a asp-action="Create" asp-controller="Events" class="btn btn-primary mb-2 mt-1"><i class="fas fa-plus-square"></i> Luo uusi tapahtuma</a>
+        </div>
+    }
+}
+
+
+@foreach (var item in Model.EventsList)
+{
+    <!-- EventCard -->
+    <div class="card promoting-card">
+        @if (Context.Session.GetString("isAdmin") == "true")
+        {
+            <div class="float-sm-right">
+                <a asp-action="Delete" asp-controller="Events" asp-route-id="@item.EventId" class="btn btn-danger float-right"><i class="fas fa-trash-alt"></i> Poista tapahtuma</a>
+                <a asp-action="Edit" asp-controller="Events" asp-route-id="@item.EventId" class="btn btn-success float-right mr-1"><i class="fas fa-trash-alt"></i> Muokkaa tapahtumaa</a>
+            </div>
+        }
+
+        <!-- Event content -->
+        <div class="card-body d-flex flex-row">
+
+            <!-- Logo -->
+            <img src="/images/events/icon.png" class="rounded-circle mr-3 pursix-icon" alt="avatar" />
+            <!-- Content -->
+            <div>
+
+                <!-- Title -->
+                <h4 class="card-title font-weight-bold mb-2">@Html.DisplayFor(modelItem => item.Name)</h4>
+                <!-- Subtitle -->
+                <p class="card-text"><i class="far fa-clock pr-2"></i>@Convert.ToDateTime(item.EventDateTime).ToString("dd/MM/yyyy")</p>
+
+            </div>
+
+        </div>
+        <!--Decimal separator must be "." , because the googlemaps url below needs it that way-->
+        @{
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalSeparator = ".";
+            string latitude = item.Latitude.ToString(nfi);
+            string longitude = item.Longitude.ToString(nfi);
+        }
+        <!-- Card image -->
+        <div class="view overlay">
+            <iframe width="450"
+                    height="250"
+                    frameborder="0"
+                    class="shadow"
+                    style=" border: 0;
+                        margin: 1.25rem;"
+                    src="https://maps.google.com/?q=@latitude,@longitude&output=svembed" allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <div class="collapse-content">
+                <!-- Event Description -->
+                <h5 class="card-title">Tapahtuman tiedot</h5>
+                <a href="@Html.DisplayFor(modelItem => item.Url)" class="card-link">@Html.DisplayFor(modelItem => item.Url)</a>
+                <p class="card-text" id="eventDescription">@Html.DisplayFor(modelItem => item.Description)</p>
+                <!-- Participants -->
+                <h6 class="card-subtitle mb-2 text-muted">Osallistujat</h6>
+                <p class="card-text">
+                    @{
+                        //getting participant count for the current event
+                        var participantCount = (from ap in Model.ParticipationList
+                                                where ap.EventId == item.EventId && ap.Confirmed == true
+                                                select ap.LoginId).Count();
+
+                        //getting info if the user is participating already
+                        var alreadyParticipant = (from al in Model.ParticipationList
+                                                  where al.LoginId == Context.Session.GetInt32("loginid") && al.EventId == item.EventId
+                                                  select al).ToList();
+
+                        //getting info if the user has already taken part to event
+                        var confirmed = (from co in Model.ParticipationList
+                                         where co.LoginId == Context.Session.GetInt32("loginid") && co.EventId == item.EventId && co.Confirmed == true
+                                         select co.Confirmed).FirstOrDefault();
+
+                    }
+                    @participantCount / @Html.DisplayFor(modelItem => item.MaxParticipants)
+                </p>
+                <!-- Participation button -->
+                @if (alreadyParticipant.Count == 0 && item.MaxParticipants > participantCount)
+                {
+                    <a class="card-link" data-toggle="modal" href="#openModal_@item.EventId"><i class="fas fa-plus-circle fa-5x p-1 my-1"></i></a>
+                }
+                <!--If the event is full-->
+                @if (participantCount == item.MaxParticipants)
+                {
+                    <p class="text-danger">Tapahtuma on täynnä!</p>
+                }
+                <!--If the user has participated, but admin has yet approved-->
+                @if (confirmed == null && alreadyParticipant.Count == 1)
+                {
+                    <p class="text-warning">Olet osallistunut tapahtumaan, mutta pääkäyttäjä ei ole vielä hyväksynyt osallistumistasi.</p>
+                    <a class="text-danger" href="@Url.Action("Delete", "EventParticipations", new { eventid = @item.EventId, loginid = @Context.Session.GetInt32("loginid")})"><i class="far fa-times-circle fa-5x p-1 my-1"></i></a>
+                }
+                <!--If the user is approved!-->
+                @if (confirmed == true && alreadyParticipant.Count == 1)
+                {
+                    <p class="text-success">Osallistut tapahtumaan!</p>
+                    <a class="text-danger" href="@Url.Action("Delete", "EventParticipations", new { eventid = @item.EventId, loginid = @Context.Session.GetInt32("loginid")})"><i class="far fa-times-circle fa-5x p-1 my-1"></i></a>
+                }
+
+                <!--------------------- Modal for participation - Additional info ------------------------>
+                <div id="openModal_@item.EventId" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title float-left">Osallistuminen</h4>
+                                <button type="button" class="close float-right" data-dismiss="modal">×</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="modal-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                                <p>Tapahtuman lisätiedot:</p>
+                                <p>@Html.DisplayFor(modelItem => item.AdditionalDetails)</p>
+                            </div>
+
+                            <form method="post" action="@Url.Action("Create", "EventParticipations")">
+                                <div class="modal-body">
+                                    <input type="text" name="loginid" value="@Context.Session.GetInt32("loginid")" hidden />
+                                    <input type="text" name="eventid" value="@item.EventId" hidden />
+                                    <textarea type="text" name="addinfo" class="form-control" placeholder="Kirjoita mahdolliset vaaditut lisätiedot tähän..."></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Osallistu</button>
+                                    <input type="button" class="btn btn-warning" data-dismiss="modal" value="Peruuta" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--************************************END_MODAL**************************************-->
+
+            </div>
+        </div>
+    </div>
+}
+
+
+

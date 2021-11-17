@@ -1,0 +1,84 @@
+﻿@model PursiXMVC.Data.UserInfo
+@using Microsoft.AspNetCore.Http;
+
+<div class="text-center">
+    <i class="fas fa-user-cog fa-6x pt-2 pb-2"></i>
+</div>
+
+<h3>Käyttäjän yhteystietojen muokkaus</h3>
+<p class="text-danger">@ViewBag.error</p>
+
+<form method="post" asp-controller="Logins" asp-action="AdminEditUserInfo">
+    <input type="hidden" asp-for="LoginId" />
+    <input type="hidden" asp-for="Email" />
+
+    <div class="form-group">
+        <p><span asp-validation-for="FirstName" class="text-danger"></span></p>
+        <span>Etunimi:</span>
+        <div class="input-group">
+            <input type="text" asp-for="FirstName" class="form-control">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="LastName" class="text-danger"></span></p>
+        <span>Sukunimi:</span>
+        <div class="input-group">
+            <input type="text" asp-for="LastName" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="Address" class="text-danger"></span></p>
+        <span>Lähiosoite:</span>
+        <div class="input-group">
+            <input type="text" asp-for="Address" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="PostalCode" class="text-danger"></span></p>
+        <span>Postinumero:</span>
+        <div class="input-group">
+            <input asp-for="PostalCode" maxlength="5" min="0" class="form-control" type="text" onkeypress="return isNumberKey(event)">
+            <script>
+                    function isNumberKey(evt) {
+
+                        var charCode = (evt.which) ? evt.which : event.keyCode
+
+                        if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                            return false;
+
+                        return true;
+
+                    }
+            </script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="City" class="text-danger"></span></p>
+        <span>Postitoimipaikka:</span>
+        <div class="input-group">
+            <input type="text" asp-for="City" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="Phone" class="text-danger"></span></p>
+        <span>Puhelinnumero:</span>
+        <div class="input-group">
+            <input type="tel" asp-for="Phone" class="form-control">
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Tallenna muutokset</button>
+
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Logins">Peruuta</a>
+
+
+
+</form>

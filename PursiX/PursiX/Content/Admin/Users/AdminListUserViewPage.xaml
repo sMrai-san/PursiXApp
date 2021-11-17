@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.Users.AdminListUserViewPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Käyttäjät ► Tiedot"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+
+                <!--Page headers-->
+                <Image Source="Admin.png" HorizontalOptions="Center" WidthRequest="70"></Image>
+                <Label x:Name="lbl_loginId" Text="{Binding LoginId}" IsVisible="False"></Label>
+                <Label Text="Käyttäjän tiedot" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Form starts here-->
+                <Label Text="Etunimi:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_firstName" Text="{Binding FirstName}" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Sukunimi:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_lastName" Text="{Binding LastName}" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Lähiosoite:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_address" Text="{Binding Address}" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Postinumero:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_postalCode" Text="{Binding PostalCode}" Keyboard="Numeric" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Paikkakunta:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_city" Text="{Binding City}" Style="{StaticResource entryText}" IsEnabled="False"></Entry>
+
+                <Label Text="Puhelinnumero:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_phoneNumber" Text="{Binding Phone}" Keyboard="Telephone" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Sähköpostiosoite:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_emailAddress" Text="{Binding Email}" Keyboard="Email" Style="{StaticResource entryText}" IsEnabled="False">
+                </Entry>
+
+                <Label Text="Onko ylläpitäjä?" FontSize="12" FontAttributes="Bold"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Ei" FontSize="10" VerticalOptions="Center"></Label>
+                    <Switch x:Name="sw_isAdmin" IsToggled="{Binding Admin}" Scale="0.8" IsEnabled="False"/>
+                    <Label Text="Kyllä" FontSize="10" VerticalOptions="Center"></Label>
+                </StackLayout>
+
+                <!--Form buttons-->
+                <Button Text="Muokkaa" x:Name="btn_modifyUser" Clicked="LoadUserEdit" Style="{StaticResource buttonEdit}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}" Margin="0, 0, 0, 8"></Button>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

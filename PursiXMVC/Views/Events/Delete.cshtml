@@ -1,0 +1,91 @@
+﻿@model PursiXMVC.Data.Events
+
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Tapahtuman poisto";
+}
+
+<h1>Poista tapahtuma</h1>
+
+<h3>Haluatko varmasti poistaa tämän tapahtuman?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <font class="text-info">Nimi:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            <font class="text-info">Päivämäärä:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EventDateTime.ToString("dd/MM/yyyy")
+        </dd>
+        <dt class="col-sm-2">
+            <font class="text-info">Kuvaus:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            <font class="text-info">Sivusto:</font>
+        </dt>
+        <dd class="col-sm-10">
+            <a href="@Html.DisplayFor(model => model.Url)">@Html.DisplayFor(model => model.Url)</a>
+        </dd>
+        <dt class="col-sm-2">
+            <font class="text-info">Lisätiedot ilmoittautujille:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AdditionalDetails)
+        </dd>
+
+        <dt class="col-sm-2 mt-1">
+        <font class="text-info">Sijainti kartalla:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                NumberFormatInfo nfi = new NumberFormatInfo();
+                nfi.NumberDecimalSeparator = ".";
+                string latitude = Model.Latitude.ToString(nfi);
+                string longitude = Model.Longitude.ToString(nfi);
+            }
+            <!-- Card image -->
+            <div class="view overlay">
+                <iframe width="450"
+                        height="250"
+                        frameborder="0"
+                        class="shadow"
+                        style=" border: 0;
+                        margin: 1.25rem;"
+                        src="https://maps.google.com/?q=@latitude,@longitude&output=svembed" allowfullscreen>
+                </iframe>
+            </div>
+
+        </dd>
+
+        <dt class="col-sm-2">
+            <font class="text-info">Leveysaste:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+        <dt class="col-sm-2">
+            <font class="text-info">Pituusaste:</font>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="EventId" />
+        <input type="submit" value="Poista" class="btn btn-danger btn-lg" />
+    </form>
+    <div class="mt-1">
+        <a asp-action="Index" asp-controller="Events"><i class="fas fa-arrow-left"></i> Takaisin tapahtumalistaukseen</a>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model PursiXMVC.Data.Login
+
+@{
+    ViewData["Title"] = "Käyttäjän poisto";
+}
+
+<h1>Käyttäjätilin poisto</h1>
+
+<h3>Oletko aivan varma, että haluat poistaa tämän käyttäjän</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Käyttäjänimi
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+           Sähköpostiosoite
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            Pääkäyttäjän oikeudet
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Admin)
+        </dd>
+        <dt class = "col-sm-2">
+            Aktivoinnin tila
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Confirmed == true)
+            {
+                <i class="fas fa-check text-success"></i>
+            }
+            else
+            {
+                <i class="fas fa-times text-danger"></i>
+            }
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="LoginId" />
+        <div><input type="submit" value="Poista" class="btn btn-danger btn-lg" /></div>
+        <div class="mt-2"><a asp-action="Index"><i class="fas fa-arrow-left"></i> Takaisin käyttäjälistaukseen</a></div>
+    </form>
+</div>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PursiX.InfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical">
+
+                <Button Text="Takaisin" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonInfo}"></Button>
+
+                <Image x:Name="InfoImage" Source="Info.png"  Margin="100, 10, 100, 25" WidthRequest="150"/>
+                <Label Text="This is a school project using Xamarin Forms" HorizontalOptions="CenterAndExpand" VerticalOptions="End" ></Label>
+                <Label Text="Crafted using Visual Studio Community 2019" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontAttributes="Italic" FontSize="12"></Label>
+                <Label Text="Basic event and user management system with a little bit of advanced Admin tools integrated. Program is fetchin data from API and sending JSON back to API in the background." Style="{StaticResource labelInfoDescription}"></Label>
+                <Label Text="Version history:" Style="{StaticResource labelInfoVersion}" FontAttributes="Italic"/>
+                
+                <Label Text="13.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added styling resources to App.xaml" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Added StartPage visuals and buttons" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="14.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added InfoPage for 'backlog' and info" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="15.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added pages: login, events" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Added a map and event info to event -page" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Started to translate UI in Finnish" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="16.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added previous/next -buttons to events page. All events will be loaded to user's device, no API handling for paging." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Added participation method and popup for additional participation info" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="17.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Started to add Registration -page layout and validation." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Some styling added to events and register -page" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="20.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added user registration with automated verification email to registered user. Sending via gmail address: yourapplicationgmailaccount@gmail.com" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="21.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added user edit page and with global variable id, you can get the user info" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Validation for user settings edit and started to add API" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- UserSettingPage -styling started" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="23.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Validation for user settings edit and started to add API" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- UserSettingPage -styling finished" Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Users can now change contact info and password from the UserSettingsPage" Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="24.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- User can now browse events, participate to events, change contact info and password." Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="27.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added event management to admin pages, admin can now browse, add, edit or remove events." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Styling and validations all around app." Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="28.07.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added participation confirmation page to admin. Admin can now accept or delete pending event participations." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Paging, styling and validating all around the app." Style="{StaticResource labelInfoVersion}" />
+
+                <Label Text="29.07.2020 - 03.08.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added admin stuff for events and users." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Paging, styling and validating all around the app." Style="{StaticResource labelInfoVersion}" />
+                
+                <Label Text="05.08.2020" Style="{StaticResource labelInfoVersion}" FontAttributes="Bold" />
+                <Label Text="- Added user participation editing system for admin." Style="{StaticResource labelInfoVersion}" />
+                <Label Text="- Behaviors: ShadowEffect -added. Now you see shadows here and there." Style="{StaticResource labelInfoVersion}" />
+                
+
+
+
+
+                <Label Text="© Ville Siivonen" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="16" Margin="0, 0, 0, 12"></Label>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

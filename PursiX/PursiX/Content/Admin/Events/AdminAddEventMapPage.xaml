@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local1="clr-namespace:PursiX.Models.Admin" xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminAddEventMapPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Tapahtumat ► Lisää"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            
+            <!--Back button-->
+            <Button Text="Takaisin" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}" Margin="0, 0, 0, 8" TextColor="White">
+                <Button.Effects>
+                    <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Button.Effects>
+            </Button>
+
+            <!--Loading indicator-->
+            <ActivityIndicator x:Name="pro_loading" IsRunning="true" HorizontalOptions="Center" IsVisible="false"/>
+
+            <!--Maphelp and clickable map-->
+            <Label Text="Valitse uuden tapahtuman sijainti kartalta" FontSize="16" TextColor="#000" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#ccc" />
+                                <On Platform="Android" Value="#ccc" />
+                                <On Platform="UWP" Value="#ccc" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+            <local1:CustomMap x:Name="map"
+                              MapType="Street"
+                              MapClicked="OnMapClicked"
+                              IsShowingUser="True"
+                              />
+            <!--<maps:Map x:Name="map" MapType="Street" MapClicked="OnMapClicked"/>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

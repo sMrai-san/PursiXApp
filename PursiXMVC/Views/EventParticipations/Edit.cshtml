@@ -1,0 +1,53 @@
+﻿@model PursiXMVC.Data.EventParticipations
+
+@{
+    ViewData["Title"] = "Osallistumispyynnön muokkaus";
+}
+
+<h1>Osallistujan tiedot</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ParticipationId" />
+            <input type="hidden" asp-for="EventId" />
+            <input type="hidden" asp-for="LoginId" />
+
+            <div class="form-group">
+                <label class="control-label h5">Tapahtuman nimi:</label>
+                <p class="font-weight-bold">@ViewBag.eventName</p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label h5">Osallistujan nimi:</label>
+                <p class="font-weight-bold">@ViewBag.participant</p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label h5">Osallistuu:</label>
+                <div class="ml-2">@Html.CheckBox("Confirmed", Model.Confirmed ?? false, new { @disabled = "disabled" })</div>
+            </div>
+            <div class="form-group">
+                <label class="control-label h5">Osallistujan antamat lisätiedot:</label>
+
+                @if (String.IsNullOrEmpty(Model.AddInfo))
+                {
+                    <p class="text-danger font-italic">Käyttäjä ei ole antanut lisäinfoa.</p>
+                }
+                else
+                {
+                    <p class="">@Html.DisplayFor(model => model.AddInfo)</p>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+    <div class="mt-4">
+        <a asp-action="Index"><i class="fas fa-arrow-left"></i> Takaisin listaukseen</a>
+    </div>
+
+
+
+

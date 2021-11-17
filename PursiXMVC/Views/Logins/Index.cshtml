@@ -1,0 +1,110 @@
+﻿@model IEnumerable<PursiXMVC.Data.Login>
+
+@{
+    ViewData["Title"] = "Käyttäjien ylläpito";
+}
+
+<h1>Käyttäjien ylläpito</h1>
+<p class="text-info">Käyttäjiä yhteensä: @ViewBag.userCount</p>
+<!--Popups for user actions!-->
+@if (ViewBag.success != null)
+{
+    <div id="successmessage">
+        <div>
+            <div id="inner-message" class="alert alert-success shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.success
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.error != null)
+{
+    <div id="errormessage">
+        <div>
+            <div id="inner-message" class="alert alert-danger shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.error
+            </div>
+        </div>
+    </div>
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary mb-2 mt-1"><i class="fas fa-plus-square"></i> Luo uusi käyttäjä</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Käyttäjänimi
+            </th>
+            <th>
+                Sähköpostiosoite
+            </th>
+            <th>
+                Sähköpostiosoite vahvistettu?
+            </th>
+            <th>
+                Aktivointikoodi
+            </th>
+            <th>
+                Pääkäyttäjä?
+            </th>
+            <th>
+                Tili aktivoitu?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @if (item.EmailConfirmed == true)
+                    {
+                        <i class="fas fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times text-danger"></i>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VerificationCode)
+                </td>
+                <td>
+                    @if (item.Admin == true)
+                    {
+                        <i class="fas fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times text-danger"></i>
+                    }
+
+                </td>
+                <td>
+                    @if (item.Confirmed == true)
+                    {
+                        <i class="fas fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times text-danger"></i>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LoginId" class="btn btn-warning btn-block">Muokkaa</a>
+                    <a asp-action="Delete" asp-route-id="@item.LoginId" class="btn btn-danger btn-block">Poista</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

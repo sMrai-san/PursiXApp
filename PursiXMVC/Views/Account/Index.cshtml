@@ -1,0 +1,46 @@
+﻿@{ Layout = "~/Views/Account/_AuthLayout.cshtml"; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pursi X - Kirjautuminen</title>
+</head>
+<body>
+    <div class="text-center">
+        @*<i class="fas fa-user-circle fa-6x pt-2 pb-2"></i>*@
+        <img class="align-self-start mr-1 mt-2" width="120" src="/images/events/icon.png" alt="PursiXLogo">
+    </div>
+    <h3>Kirjautuminen</h3>
+    <p class="text-danger">@ViewBag.error</p>
+    <p class="text-success">@ViewBag.success</p>
+    <form method="post" asp-controller="account" asp-action="login">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <input type="text" name="username" class="form-control" placeholder="Sähköposti">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <input type="password" name="password" class="form-control" placeholder="Salasana">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-2">Kirjaudu</button>
+
+    </form>
+
+</body>
+</html>

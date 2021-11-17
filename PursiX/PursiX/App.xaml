@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PursiX.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--DEFAULTS-->
+            <Style x:Key="stacklayoutEven" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="StartAndExpand" />
+                <Setter Property="Margin" Value="40, 14, 40, 0" />
+            </Style>
+
+            <Style x:Key="buttonValidate" TargetType="Button">
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="BackgroundColor" Value="#38A654" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="3" />
+            </Style>
+            
+            <Style x:Key="buttonEdit" TargetType="Button">
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="BackgroundColor" Value="#F2BC57" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="3" />
+            </Style>
+
+            <Style x:Key="buttonInfo" TargetType="Button">
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="BackgroundColor" Value="#303F9F" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="0" />
+            </Style>
+
+            <Style x:Key="buttonDanger" TargetType="Button">
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="BackgroundColor" Value="#F2727D" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <Style x:Key="buttonCancel" TargetType="Button">
+                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="CornerRadius" Value="1" />
+            </Style>
+
+
+            <!--StartPage styling-->
+            <Style x:Key="buttonWelcomeLogin" TargetType="Button">
+                <Setter Property="BorderColor" Value="#e3e3e3" />
+                <Setter Property="BackgroundColor" Value="#38A654" />
+                <Setter Property="BorderWidth" Value="4" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="Margin" Value="20, 0, 20, 2" />
+            </Style>
+            <Style x:Key="buttonWelcomeRegister" TargetType="Button">
+                <Setter Property="BorderColor" Value="#e3e3e3" />
+                <Setter Property="BackgroundColor" Value="#F2BC57" />
+                <Setter Property="BorderWidth" Value="4" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="Margin" Value="20, 0, 20, 5" />
+            </Style>
+
+            <Style x:Key="labelWelcome" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CharacterSpacing" Value="2.5" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            
+            <!--InfoPage styling-->
+            <Style x:Key="labelInfoDescription" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="LineBreakMode" Value="CharacterWrap" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="75, 0, 75, 0" />
+            </Style>
+            <Style x:Key="labelInfoVersion" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="LineBreakMode" Value="CharacterWrap" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Margin" Value="75, 0, 75, 0" />
+            </Style>
+            <!--LoginPage styling-->
+            
+            <!--EventListPage styling-->
+            <Style x:Key="labelParticipants" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+            </Style>
+            <Style x:Key="buttonParticipate" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="BackgroundColor" Value="#F2BC57" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="CornerRadius" Value="3" />
+            </Style>
+            <Style x:Key="labelAlreadyPart" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="TextColor" Value="#328C49" />
+            </Style>
+            <Style x:Key="labelPendingPart" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="TextColor" Value="#F2727D" />
+            </Style>
+            
+            <!--RegistrationPage styling-->
+            <Style x:Key="labelSmallText" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Margin" Value="4, 0, 0, -16" />
+                <Setter Property="FontAttributes" Value="Italic" />
+            </Style>
+            <Style x:Key="labelSmallTextGreen" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="TextColor" Value="Green" />
+                <Setter Property="Margin" Value="4, 0, 0, 0" />
+            </Style>
+            <Style x:Key="entryText" TargetType="Entry">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <!--AdminAddEventPage styling-->
+            <Style x:Key="labelSmallTextAdmin" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontAttributes" Value="Italic" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

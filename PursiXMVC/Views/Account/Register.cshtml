@@ -1,0 +1,130 @@
+﻿@model PursiXMVC.Models.RegisterViewModel
+
+@{ Layout = "~/Views/Account/_AuthLayout.cshtml"; }
+
+@{
+    ViewData["Title"] = "Sähköpostiosoitteen aktivointi";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pursi X - Rekisteröinti</title>
+</head>
+<body>
+    <div class="text-center">
+        <i class="fas fa-user-plus fa-6x pt-2 pb-2"></i>
+    </div>
+    <h3>Rekisteröinti</h3>
+    <p class="text-danger">@ViewBag.error</p>
+    <form method="post" asp-controller="account" asp-action="register">
+
+        <div class="form-group">
+            <p><span asp-validation-for="FirstName" class="text-danger"></span></p>
+            <span>Etunimi:</span>
+            <div class="input-group">
+                <input type="text" asp-for="FirstName" class="form-control">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="LastName" class="text-danger"></span></p>
+            <span>Sukunimi:</span>
+            <div class="input-group">
+                <input type="text" asp-for="LastName" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="Address" class="text-danger"></span></p>
+            <span>Lähiosoite:</span>
+            <div class="input-group">
+                <input type="text" asp-for="Address" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="PostalCode" class="text-danger"></span></p>
+            <span>Postinumero:</span>
+            <div class="input-group">
+                <input asp-for="PostalCode" maxlength="5" min="0" class="form-control" type="text" onkeypress="return isNumberKey(event)">
+                <script>
+                    function isNumberKey(evt) {
+
+                        var charCode = (evt.which) ? evt.which : event.keyCode
+
+                        if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                            return false;
+
+                        return true;
+
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="City" class="text-danger"></span></p>
+            <span>Postitoimipaikka:</span>
+            <div class="input-group">
+                <input type="text" asp-for="City" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="Phone" class="text-danger"></span></p>
+            <span>Puhelinnumero:</span>
+            <div class="input-group">
+                <input type="tel" asp-for="Phone" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="text-danger">@ViewBag.emailError</p>
+            <p><span asp-validation-for="Email" class="text-danger"></span></p>
+            <span>Sähköpostiosoite:</span>
+            <div class="input-group">
+                <input asp-for="Email" name="email" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="Email" class="text-danger"></span></p>
+            <span>Sähköpostiosoite uudelleen:</span>
+            <div class="input-group">
+                <input name="emailveri" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="text-danger">@ViewBag.passwordError</p>
+            <p><span asp-validation-for="PassWord" class="text-danger"></span></p>
+            <span>Salasana:</span>
+
+            <div class="input-group">
+                <input type="password" asp-for="PassWord" class="form-control" placeholder="1 kirjain 1 numero, vähintää 8 merkkiä">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span asp-validation-for="PassWord" class="text-danger"></span></p>
+            <span>Salasana uudelleen:</span>
+            <div class="input-group">
+                <input type="password" name="passwordveri" class="form-control" placeholder="1 kirjain 1 numero, vähintää 8 merkkiä">
+            </div>
+        </div>
+
+
+
+
+
+        <button type="submit" class="btn btn-primary mb-2">Rekisteröidy</button>
+
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<PursiXMVC.Data.EventParticipations>
+
+@{
+    ViewData["Title"] = "Osallistumispyyntöjen ylläpito";
+}
+
+<h1>Ilmottautumisten ylläpito</h1>
+
+<!--Popups for user actions!-->
+@if (ViewBag.success != null)
+{
+    <div id="successmessage">
+        <div>
+            <div id="inner-message" class="alert alert-success shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.success
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.error != null)
+{
+    <div id="errormessage">
+        <div>
+            <div id="inner-message" class="alert alert-danger shadow">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                @ViewBag.error
+            </div>
+        </div>
+    </div>
+}
+
+
+<div>
+    @if (ViewBag.showconfirmed == false)
+    {
+        <a asp-action="Index" asp-controller="EventParticipations" asp-route-showConfirmed="true" class="btn btn-success mb-2 mt-1"><i class="fas fa-check"></i> Näytä hyväksytyt</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-controller="EventParticipations" class="btn btn-info mb-2 mt-1"><i class="fas fa-times"></i> Näytä hyväksymättömät</a>
+    }
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.showconfirmed == true)
+                {
+                    <font>Tapahtuma</font>
+                }
+                else
+                {
+
+                    @if (ViewBag.eventpressed == true)
+                    {
+                        <i id="eventList" class="fas fa-caret-down"></i> @Html.ActionLink("Tapahtuma", "Index", new { sortOrder = ViewBag.EventNameSort })
+                    }
+                    else
+                    {
+                        <i id="eventList" class="fas fa-minus"></i> @Html.ActionLink("Tapahtuma", "Index", new { sortOrder = ViewBag.EventNameSort })
+                    }
+                }
+            </th>
+            @if (ViewBag.showconfirmed == true)
+            {
+                <th>
+                    Hyväksytyt osallistujat
+                </th>
+            }
+            <th>
+                Osallistujan antama lisäinfo
+            </th>
+            <th>
+                @if (ViewBag.showconfirmed == true)
+                {
+                    <font>Osallistuja</font>
+                }
+                else
+                {
+                    @if (ViewBag.emailpressed == true)
+                    {
+                        <i id="emailList" class="fas fa-caret-down"></i> @Html.ActionLink("Osallistuja", "Index", new { sortOrder = ViewBag.EmailSort })
+                    }
+                    else
+                    {
+                        <i id="emailList" class="fas fa-minus"></i> @Html.ActionLink("Osallistuja", "Index", new { sortOrder = ViewBag.EmailSort })
+                    }
+                }
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event.Name)
+            </td>
+
+            @{
+                //getting participant count for the current event
+                var participantCount = (from ap in Model
+                                        where ap.EventId == item.EventId && ap.Confirmed == true
+                                        select ap.LoginId).Count();
+            }
+            @if (ViewBag.showconfirmed == true)
+            {
+                <td>
+                    @participantCount <font>/</font> @Html.DisplayFor(modelItem => item.Event.MaxParticipants)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.AddInfo)
+            </td>
+            <td>
+                <a href="@Url.Action("ViewUserInfo", "Account", new { loginid = item.LoginId})">@Html.DisplayFor(modelItem => item.Login.Email)</a>
+            </td>
+            <td>
+                @if (ViewBag.showconfirmed == false)
+                {
+                    <!--Confirm button with id passed to controller-->
+                    <a asp-action="ConfirmParticipant" asp-route-participationId="@item.ParticipationId" asp-route-eventId="@item.EventId" class="btn btn-success btn-block shadow-sm">Hyväksy</a>
+                }
+                <!--Delete with confirm-->
+                    <a class="btn btn-danger btn-block shadow-sm" href="@Url.Action("AdminDelete", "EventParticipations", new { eventid = @item.EventId, loginid = @item.LoginId})" onclick="return confirm('Oletko varma, että haluat poistaa osallistumisen käyttäjältä @item.Login.Email tapahtumasta @item.Event.Name?')">Poista</a>
+                </td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+
+
+
+

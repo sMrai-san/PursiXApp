@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+            <Label Text="Pursi X v.0.1a" TextColor="White">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="3" DistanceX="6" DistanceY="6">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+
+   
+    <Grid RowSpacing="1" ColumnSpacing="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--Event Management-->
+        <BoxView x:Name="grid_events" Color="#38A654">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToEventManagement" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Text="Tapahtumat" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="Black" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="Black" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToEventManagement" />
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <!--User Management-->
+        <BoxView x:Name="grid_users" Grid.Column="1" Color="#F2BC57">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToUserManagement" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Column="1" Text="Käyttäjät" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="Black" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="Black" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToUserManagement" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--Unconfirmed participants-->
+        <BoxView x:Name="grid_participants" Grid.Row="1" Color="#F2BC57">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToParticipationConfirm"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1" Text="Ilmoittautumiset" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="Black" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="Black" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToParticipationConfirm" />
+            </Label.GestureRecognizers>
+        </Label>
+            <Label Grid.Row="1" BindingContext="{x:Reference grid_pCount}" Text="{Binding Text, StringFormat='Hyväksymättömiä: {0:F2}'}" HorizontalOptions="Center" VerticalOptions="End" FontSize="11" Margin="0,0,0,4" />
+            <Label x:Name="grid_pCount" Text="" IsVisible="false" />
+
+
+        <!--Edit confirmed participants-->
+        <BoxView x:Name="grid_partEdit" Grid.Row="1" Grid.Column="1" Color="#38A654">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToParticipationEdit" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1"  Grid.Column="1" Text="Muokkaa hyväksyttyjä ilmoittautumisia" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="Black" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="Black" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToParticipationEdit" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!--Confirms registrants-->
+        <Frame x:Name="grid_confirmRegistration" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="#328C49" HasShadow="True">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToUserConfirmation"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Hyväksy rekisteröitymisiä" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#000" />
+                            <On Platform="Android" Value="#000" />
+                            <On Platform="UWP" Value="#000" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToUserConfirmation"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" BindingContext="{x:Reference grid_rCount}" Text="{Binding Text, StringFormat='Hyväksymättömät: {0:F2}'}" HorizontalOptions="Center" VerticalOptions="End" FontSize="11" Margin="0,0,0,4" />
+        <Label x:Name="grid_rCount" Text="" IsVisible="false" />
+
+        <!--Back to StartPage-->
+        <Frame x:Name="grid_cancel" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="LightGray" HasShadow="True">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Takaisin etusivulle" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#000" />
+                            <On Platform="Android" Value="#000" />
+                            <On Platform="UWP" Value="#000" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminLoginPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+            <Label Text="Pursi X v.0.1a" TextColor="White">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="3" DistanceX="6" DistanceY="6">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource stacklayoutEven}">
+            
+            <!--Page Headers-->
+            <Image Source="Admin.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="70"></Image>
+            <Label Text="Ylläpidon kirjautuminen" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+            <!--Login form Starts-->
+            <Entry x:Name="inputUserName" Placeholder="Sähköpostiosoite" Keyboard="Email"></Entry>
+            <Entry x:Name="inputPassword" Placeholder="Salasana" IsPassword="True"></Entry>
+
+            <!--Login Forms Buttons-->
+            <Button Text="Kirjaudu" x:Name="btn_login" Clicked="Login" Style="{StaticResource buttonValidate}"></Button>
+            <Button Text="Takaisin" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}"></Button>
+
+            <!--Loading indicator-->
+            <ActivityIndicator x:Name="pro_loading" IsRunning="true" HorizontalOptions="Center" IsVisible="false"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

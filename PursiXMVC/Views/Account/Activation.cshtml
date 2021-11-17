@@ -1,0 +1,64 @@
+﻿@model PursiXMVC.Models.RegisterViewModel
+
+@{ Layout = "~/Views/Account/_AuthLayout.cshtml"; }
+
+@{
+    ViewData["Title"] = "Sähköpostiosoitteen aktivointi";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pursi X - Sähköpostiosoitteen aktivointi</title>
+</head>
+<body>
+    <div class="text-center">
+        <i class="fas fa-user-plus fa-6x pt-2 pb-2"></i>
+    </div>
+    <h3>Sähköpostin aktivointi</h3>
+    <p class="text-danger">@ViewBag.error</p>
+<form method="post" asp-controller="account" asp-action="activation">
+    <div class="form-group">
+        <p><span asp-validation-for="Email" class="text-danger"></span></p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+            <input type="text" asp-for="@Model.Email" name="username" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <p><span asp-validation-for="VerificationCode" class="text-danger"></span></p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+            </div>
+            <input type="text" asp-for="@Model.VerificationCode" name="activationCode" maxlength="4" min="0" placeholder="4-numeroinen aktivointikoodi" class="form-control" onkeypress="return isNumberKey(event)">
+            <script>
+                function isNumberKey(evt) {
+
+                    var charCode = (evt.which) ? evt.which : event.keyCode
+
+                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                        return false;
+
+                    return true;
+
+                }
+            </script>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Aktivoi</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.Users.AdminDeleteUserPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Käyttäjät ► Poista"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <!--Back button-->
+                <Button Text="Takaisin" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}" Margin="0, 0, 0, 8" TextColor="White">
+                    <Button.Effects>
+                        <local:ShadowEffect Radius="4" DistanceX="5" DistanceY="5">
+                            <local:ShadowEffect.Color>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <On Platform="iOS" Value="#000" />
+                                    <On Platform="Android" Value="#000" />
+                                    <On Platform="UWP" Value="#000" />
+                                </OnPlatform>
+                            </local:ShadowEffect.Color>
+                        </local:ShadowEffect>
+                    </Button.Effects>
+                </Button>
+
+                <!--Loading indicator-->
+                <ActivityIndicator x:Name="pro_loading" IsRunning="true" HorizontalOptions="Center" />
+
+                <!--Search-->
+                <Grid Margin="0,0,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Hae käyttäjää sukunimellä" FontSize="12" FontAttributes="Bold" Margin="27, 0, 0, 0" />
+                    <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Margin="24, -12, 12, 0" >
+                        <Entry x:Name="input_searchEvent" Placeholder="Hae" TextChanged="InputSearch" />
+                    </StackLayout>
+                </Grid>
+
+
+                <!-- PreviousPage - NextPage controls -->
+                <Grid Grid.Row="3" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" x:Name="lbl_noMoreResults" Text="" Style="{StaticResource labelPendingPart}" FontSize="Caption" HorizontalOptions="FillAndExpand" />
+                    <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="0" >
+                        <Button Grid.Column="0" x:Name="btn_previous" Text="◄ Edelliset" HorizontalOptions="CenterAndExpand" WidthRequest="150" FontSize="12" Clicked="previousPage">
+                            <Button.Effects>
+                                <local:ShadowEffect Radius="6" DistanceX="7" DistanceY="6">
+                                    <local:ShadowEffect.Color>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <On Platform="iOS" Value="#eee" />
+                                            <On Platform="Android" Value="#eee" />
+                                            <On Platform="UWP" Value="#eee" />
+                                        </OnPlatform>
+                                    </local:ShadowEffect.Color>
+                                </local:ShadowEffect>
+                            </Button.Effects>
+                        </Button>
+
+                        <StackLayout Grid.Column="1"  Orientation="Horizontal" VerticalOptions="End" Margin="0, 0, 0, 2">
+                            <Label x:Name="lbl_pageCount" Text=""></Label>
+                            <Label x:Name="lbl_countDivider" Text=" / "></Label>
+                            <Label x:Name="lbl_eventCount" Text=""></Label>
+                        </StackLayout>
+                        <Button Grid.Column="2" x:Name="btn_next" Text="Seuraavat ►" HorizontalOptions="CenterAndExpand" WidthRequest="150" FontSize="12" Clicked="nextPage">
+                            <Button.Effects>
+                                <local:ShadowEffect Radius="6" DistanceX="7" DistanceY="6">
+                                    <local:ShadowEffect.Color>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <On Platform="iOS" Value="#eee" />
+                                            <On Platform="Android" Value="#eee" />
+                                            <On Platform="UWP" Value="#eee" />
+                                        </OnPlatform>
+                                    </local:ShadowEffect.Color>
+                                </local:ShadowEffect>
+                            </Button.Effects>
+                        </Button>
+                    </StackLayout>
+                </Grid>
+
+                <!--All users listed here-->
+                <ListView x:Name="userList" HasUnevenRows="True" Margin="24, 0, 0, 0" SelectionMode="Single" ItemSelected="LoadUserDelete">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="9*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="lbl_userId" Text="{Binding EventID}" IsVisible="False"/>
+                                    <Label x:Name="lbl_isAdmin" Text="{Binding Admin}" IsVisible="False"/>
+                                    <StackLayout Padding="6">
+                                        <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                                            <Label x:Name="lbl_firstName" Text="{Binding FirstName}" FontSize="14" FontAttributes="Italic" VerticalOptions="End" LineBreakMode="WordWrap"/>
+                                            <Label x:Name="lbl_lastName" Text="{Binding LastName}" FontSize="14" FontAttributes="Italic" VerticalOptions="End" LineBreakMode="WordWrap"/>
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" Grid.Column="1">
+                                            <Label x:Name="lbl_emailAddress" Text="{Binding Email}" FontSize="16" LineBreakMode="WordWrap">
+                                            </Label>
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

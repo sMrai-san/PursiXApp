@@ -1,0 +1,145 @@
+﻿@model PursiXMVC.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Käyttäjän luonti";
+}
+
+
+<div class="text-center">
+    <i class="fas fa-user-plus fa-6x pt-2 pb-2"></i>
+</div>
+<h3>Lisää uusi käyttäjä</h3>
+<p class="text-danger">@ViewBag.error</p>
+<form asp-action="AdminRegister" asp-controller="Account">
+
+    <div class="form-group">
+        <p><span asp-validation-for="FirstName" class="text-danger"></span></p>
+        <span>Etunimi:</span>
+        <div class="input-group">
+            <input type="text" asp-for="FirstName" class="form-control">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="LastName" class="text-danger"></span></p>
+        <span>Sukunimi:</span>
+        <div class="input-group">
+            <input type="text" asp-for="LastName" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="Address" class="text-danger"></span></p>
+        <span>Lähiosoite:</span>
+        <div class="input-group">
+            <input type="text" asp-for="Address" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="PostalCode" class="text-danger"></span></p>
+        <span>Postinumero:</span>
+        <div class="input-group">
+            <input asp-for="PostalCode" maxlength="5" min="0" class="form-control" type="text" onkeypress="return isNumberKey(event)">
+            <script>
+                    function isNumberKey(evt) {
+
+                        var charCode = (evt.which) ? evt.which : event.keyCode
+
+                        if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                            return false;
+
+                        return true;
+
+                    }
+            </script>
+        </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="City" class="text-danger"></span></p>
+        <span>Postitoimipaikka:</span>
+        <div class="input-group">
+            <input type="text" asp-for="City" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="Phone" class="text-danger"></span></p>
+        <span>Puhelinnumero:</span>
+        <div class="input-group">
+            <input type="tel" asp-for="Phone" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="text-danger">@ViewBag.emailError</p>
+        <p><span asp-validation-for="Email" class="text-danger"></span></p>
+        <span>Sähköpostiosoite:</span>
+        <div class="input-group">
+            <input asp-for="Email" name="email" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="Email" class="text-danger"></span></p>
+        <span>Sähköpostiosoite uudelleen:</span>
+        <div class="input-group">
+            <input name="emailveri" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="text-danger">@ViewBag.passwordError</p>
+        <p><span asp-validation-for="PassWord" class="text-danger"></span></p>
+        <span>Salasana:</span>
+
+        <div class="input-group">
+            <input type="password" asp-for="PassWord" class="form-control" placeholder="1 kirjain 1 numero, vähintää 8 merkkiä">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="PassWord" class="text-danger"></span></p>
+        <span>Salasana uudelleen:</span>
+        <div class="input-group">
+            <input type="password" name="passwordveri" class="form-control" placeholder="1 kirjain 1 numero, vähintää 8 merkkiä">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p><span asp-validation-for="VerificationCode" class="text-danger"></span></p>
+        <label class="control-label">Sähköpostin aktivointikoodi:</label>
+        <input asp-for="VerificationCode" type="text" class="form-control" value="1234" disabled/>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label class="control-label">Sähköpostin aktivointi heti:</label>
+            <div class="ml-2">@Html.CheckBoxFor(model => model.EmailConfirmed)</div>
+            <span asp-validation-for="EmailConfirmed" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label class="control-label">Pääkäyttäjän oikeudet:</label>
+            <div class="ml-2">@Html.CheckBoxFor(model => model.Admin)</div>
+            <span asp-validation-for="Admin" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group col-md-3">
+            <label class="control-label">Käyttäjätilin aktivointi heti:</label>
+            <div class="ml-2">@Html.CheckBoxFor(model => model.Confirmed)</div>
+            <span asp-validation-for="Confirmed" class="text-danger"></span>
+        </div>
+    </div>
+
+
+        <button type="submit" class="btn btn-primary mb-2 mt-4">Luo uusi käyttäjä</button>
+
+</form>
+<div>
+    <a asp-action="Index"><i class="fas fa-arrow-left"></i> Takaisin käyttäjälistaukseen</a>
+</div>
+

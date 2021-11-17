@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.Users.AdminAddUser">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Käyttäjät ► Lisää"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+
+                <!--Page headers-->
+                <Image Source="Admin.png" HorizontalOptions="Center" WidthRequest="70"></Image>
+                <Label Text="Lisää uusi käyttäjä" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Forms starts here-->
+                <Entry x:Name="input_firstName" Placeholder="Etunimi" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="35" />
+                        <local:LetterValidation />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Entry x:Name="input_lastName" Placeholder="Sukunimi" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="35" />
+                        <local:LetterValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="input_address" Placeholder="Lähiosoite" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="95" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="input_postalCode" Placeholder="Postinumero" Keyboard="Numeric" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:MaxLenghtValidation MaxLength="5" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry x:Name="input_city" Placeholder="Postitoimipaikka" Style="{StaticResource entryText}"></Entry>
+                <Entry x:Name="input_phoneNumber" Placeholder="Puhelinnumero" Keyboard="Telephone" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PhoneNumberValidate />
+                    </Entry.Behaviors>
+                </Entry>
+                <ActivityIndicator x:Name="emailcheck_loading" IsRunning="true" HorizontalOptions="Center" IsVisible="false" WidthRequest="20" Color="Gray"/>
+                <Entry x:Name="input_emailAddress" Placeholder="Sähköpostiosoite" Keyboard="Email" Style="{StaticResource entryText}" Unfocused="Entry_EmailCheck">
+                    <Entry.Behaviors>
+                        <local:EmailValidate />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Syötä sähköpostiosoite uudelleen:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_emailAddressAgain" Placeholder="Sähköpostiosoite uudelleen" Keyboard="Email" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:EmailValidate />
+                        <local:CompareValidation BindingContext="{x:Reference input_emailAddress}" Text="{Binding Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Salasanan tulee olla vähintään 8 merkkiä pitkä ja sisältää 1 numero:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_password" Placeholder="Salasana" IsPassword="True" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PasswordValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Salasana uudelleen:" Style="{StaticResource labelSmallText}" />
+                <Entry x:Name="input_passwordAgain" Placeholder="Salasana uudelleen" IsPassword="True" Style="{StaticResource entryText}">
+                    <Entry.Behaviors>
+                        <local:PasswordValidation />
+                        <local:CompareValidation BindingContext="{x:Reference input_password}" Text="{Binding Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="Onko ylläpitäjä?" FontSize="12" FontAttributes="Bold"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Ei" FontSize="10" VerticalOptions="Center"></Label>
+                    <Switch x:Name="sw_isAdmin" IsToggled="false" Scale="0.8" />
+                    <Label Text="Kyllä" FontSize="10" VerticalOptions="Center"></Label>
+                </StackLayout>
+
+                <!--Form buttons-->
+                <Button Text="Lisää käyttäjä" x:Name="btn_register" Clicked="AddUser" Style="{StaticResource buttonValidate}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}" Margin="0, 0, 0, 8"></Button>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

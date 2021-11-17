@@ -1,0 +1,76 @@
+﻿@model PursiXMVC.Models.User.EditUserInfoModel
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Käyttäjän yhteystiedot";
+}
+
+<div class="text-center">
+    <i class="fas fa-user fa-6x pt-2 pb-2"></i>
+</div>
+
+<h3>Käyttäjän yhteystiedot</h3>
+
+<form asp-controller="account" asp-action="viewuserinfo">
+
+    <div class="form-group">
+        <label class="font-weight-bold">LoginID:</label>
+        <div class="input-group">
+            <label class="text-primary">@Html.DisplayFor(model => model.LoginId)</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="font-weight-bold">Sähköposti:</label>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.Email)</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Etunimi:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.FirstName)</label>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Sukunimi:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.LastName)</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Lähiosoite:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.Address)</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Postinumero:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.PostalCode)</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Postitoimipaikka:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.City)</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="font-weight-bold">Puhelinnumero:</span>
+        <div class="input-group">
+            <label>@Html.DisplayFor(model => model.Phone)</label>
+        </div>
+    </div>
+
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="EventParticipations">Takaisin ilmoittautumislistaukseen</a>
+
+
+
+</form>

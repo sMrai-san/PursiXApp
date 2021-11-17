@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local1="clr-namespace:PursiX.Models.Admin"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.Admin.AdminModifyEventPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ylläpito ► Tapahtumat ► Muokkaa"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="adminText"
+                  />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Style="{StaticResource stacklayoutEven}">
+
+                <!--Modify Event Headers-->
+                <Image Source="Admin.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="70"></Image>
+                <Label Text="Muokkaa tapahtumaa" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Black"></Label>
+
+                <!--Form starts here-->
+                <Grid x:Name="grid_eventId">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="90" />
+                    </Grid.ColumnDefinitions>
+                        <Label x:Name="lbl_eventId" Text="Tapahtuman id:" FontSize="10" Grid.Row="0" Grid.Column="0"></Label>
+                        <Label x:Name="input_eventId" Text="{Binding EventId}" FontSize="10" Grid.Row="0" Grid.Column="1"></Label>
+                </Grid>
+                
+                <Label Text="Tapahtuman päivämäärä:" FontSize="12" Margin="4, 12, 0, -12" />
+                <DatePicker x:Name="input_eventDate"
+                            MinimumDate="01/01/2020"
+                            MaximumDate="01/01/2045" Format="dd/MM/yyyy"
+                            Date="{Binding EventDateTime}" />
+
+                <Label Text="Nimi:" FontSize="12" Margin="4, 12, 0, -12" />
+                <Entry x:Name="input_eventName" Text="{Binding Name}" Keyboard="Text" MaxLength="60"></Entry>
+
+                <Label Text="Kuvaus:" FontSize="12" Margin="4, 12, 0, -12" />
+                <Editor x:Name="input_eventDescription" Text="{Binding Description}" Keyboard="Text" AutoSize="TextChanges"></Editor>
+
+                <Label Text="Osallistujien enimmäismäärä:" FontSize="12" Margin="4, 12, 0, -12" />
+                <Entry x:Name="input_eventMaxParticipations" Text="{Binding MaxParticipants}" Keyboard="Numeric" MaxLength="4" />
+
+                <Label Text="Sivusto:" FontSize="12" Margin="4, 12, 0, -12" />
+                <Entry x:Name="input_eventUrl" Text="{Binding Url}" Keyboard="Url">
+                    <Entry.Behaviors>
+                        <local:UrlValidation />
+                    </Entry.Behaviors>
+                </Entry>
+                <Grid Margin="0,0,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="200" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Leveysaste" Style="{StaticResource labelSmallTextAdmin}" />
+                    <Label Grid.Row="1" Grid.Column="0" x:Name="input_eventLatitude" Text="{Binding Latitude}" ></Label>
+                    <Label Grid.Row="0" Grid.Column="1" Text="Pituusaste" Style="{StaticResource labelSmallTextAdmin}" />
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="input_eventLongitude" Text="{Binding Longitude}" ></Label>
+                    <StackLayout Grid.Row="2" Grid.ColumnSpan="2" x:Name="layout_map" IsVisible="True">
+                        <Label Text="Muuta tapahtuman paikkaa karttaa napsauttamalla" FontSize="12" Margin="4, 0, 0, 0" />
+                        <Label Text="(zoomaa karttaa lähemmäksi, jotta kartan merkkaaminen aktivoituu)" FontSize="11" FontAttributes="Italic" Margin="4, 0, 0, 0" />
+                        <local1:CustomMap
+                                x:Name="map"
+                                MapType="Street"
+                                MapClicked="OnMapClicked"
+                                />
+                    </StackLayout>
+                </Grid>
+
+
+                <!--Form buttons-->
+                <Button Text="Muokkaa tapahtumaa" x:Name="btn_addEvent" Clicked="EditEvent" Style="{StaticResource buttonValidate}"></Button>
+                <Button Text="Poista tapahtuma" x:Name="btn_deleteEvent" Clicked="DeleteEvent" Style="{StaticResource buttonDanger}"></Button>
+                <Button Text="Peruuta" x:Name="btn_cancel" Clicked="Cancel" Style="{StaticResource buttonCancel}"></Button>
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,77 @@
+﻿@model PursiXMVC.Data.Login
+
+@{
+    ViewData["Title"] = "Käyttäjän muokkaus";
+}
+
+<h1>Muokkaa</h1>
+
+<h4>Käyttäjä</h4>
+<a class="btn btn-primary" asp-action="AdminEditUserInfo" asp-controller="Logins" asp-route-id="@Model.LoginId">Muokkaa yhteystietoja</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="LoginId" />
+            <input type="hidden" asp-for="UserName" />
+            <input type="hidden" asp-for="EmailConfirmed" />
+            <div class="form-group">
+                <label class="control-label">Käyttäjänimi <small>(ohjelmiston sisäiseen käyttöön)</small></label>
+                <input asp-for="UserName" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Sähköpostiosoite</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Salasana</label>
+                <input asp-for="PassWord" type="password" value="@Model.PassWord" class="form-control" />
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+            </div>
+
+            <div class="form-group border border-info rounded p-2 shadow">
+                <label class="control-label">Onko käyttäjä vahvistanut sähköpostiosoitteensa?</label>
+                <div class="ml-2">
+                    @if (Model.EmailConfirmed == true)
+                    {
+                        <i class="fas fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times text-danger"></i>
+                    }
+                </div>
+                <span asp-validation-for="EmailConfirmed" class="text-danger"></span>
+
+                <label class="control-label">Käyttäjän sähköpostin aktivointikoodi</label>
+                <input type="hidden" asp-for="VerificationCode" />
+                <input asp-for="VerificationCode" class="form-control" disabled />
+                <span asp-validation-for="VerificationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group border border-warning rounded p-2 shadow">
+                <label class="control-label font-weight-bold">Pääkäyttäjän oikeudet:</label>
+                <div class="ml-2">@Html.CheckBox("Admin", Model.Admin)</div>
+                <div class="mt-3 text-muted">Kyllä: <i class="far fa-check-square"></i> Ei: <i class="far fa-square"></i></div>
+            </div>
+            <div class="form-group border border-success rounded p-2 shadow">
+                <label class="control-label font-weight-bold">Aktivoi käyttäjätili:</label>
+                <div class="ml-2">@Html.CheckBox("Confirmed", Model.Confirmed)</div>
+                <div class="mt-3 text-muted">Aktivoitu: <i class="far fa-check-square"></i> Ei aktivoitu: <i class="far fa-square"></i></div>
+                <span asp-validation-for="Confirmed" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index"><i class="fas fa-arrow-left"></i> Takaisin käyttäjälistaukseen</a>
+</div>
+

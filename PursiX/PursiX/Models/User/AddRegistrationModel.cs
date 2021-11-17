@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace PursiX.Models.User
+{
+    class AddRegistrationModel
+    {
+        //Login
+        public string Email { get; set; }
+        public string PassWord { get; set; }
+        public int? VerificationCode { get; set; }
+        public bool Confirmed { get; set; }
+
+        //UserInfo
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Phone { get; set; }
+    }
+}

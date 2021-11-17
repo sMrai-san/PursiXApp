@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PursiX.Behaviors"
+             mc:Ignorable="d"
+             x:Class="PursiX.Content.UserSettingsPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+            <Label Text="Pursi X v.0.1a" TextColor="White">
+                <Label.Effects>
+                    <local:ShadowEffect Radius="3" DistanceX="6" DistanceY="6">
+                        <local:ShadowEffect.Color>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="iOS" Value="#000" />
+                                <On Platform="Android" Value="#000" />
+                                <On Platform="UWP" Value="#000" />
+                            </OnPlatform>
+                        </local:ShadowEffect.Color>
+                    </local:ShadowEffect>
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout"
+                 IconImageSource="logout.png"
+                 Order="Primary"
+                 Priority="0"
+                 x:Name="userLogoutToolbarItem"
+                 Clicked="Logout"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="1" ColumnSpacing="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <BoxView x:Name="grid_edituserinfo" Color="#F2BC57">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="LoadUserEdit"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Text="Muokkaa yhteystietojasi" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="LoadUserEdit"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <BoxView x:Name="grid_changepwd" Grid.Column="1" Color="#F2727D">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="LoadPasswordEdit"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Column="1" Text="Vaihda salasanasi" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="LoadPasswordEdit"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <BoxView x:Name="grid_contact" Grid.Row="1" Color="#38A654">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="openContact"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1" Text="PursiX yhteystiedot" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="openContact"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <BoxView x:Name="grid_info" Grid.Row="1" Grid.Column="1" Color="#328C49">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToInfo"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        <Label Grid.Row="1" Text="Tietoa PursiX ohjelmistosta" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#ccc" />
+                            <On Platform="Android" Value="#ccc" />
+                            <On Platform="UWP" Value="#ccc" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="continueToInfo"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Frame x:Name="grid_cancel" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="LightGray" BorderColor="Gray" HasShadow="True">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Palaa takaisin tapahtumalistaukseen" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontAttributes="Bold">
+            <Label.Effects>
+                <local:ShadowEffect Radius="6" DistanceX="4" DistanceY="4">
+                    <local:ShadowEffect.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#000" />
+                            <On Platform="Android" Value="#000" />
+                            <On Platform="UWP" Value="#000" />
+                        </OnPlatform>
+                    </local:ShadowEffect.Color>
+                </local:ShadowEffect>
+            </Label.Effects>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Cancel"/>
+            </Label.GestureRecognizers>
+        </Label>
+        
+        
+    </Grid>
+</ContentPage>
